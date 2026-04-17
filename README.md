@@ -1,6 +1,6 @@
 # musicgame
 
-ブラウザで遊べる 6 レーン（S D F J K L）縦スクロール音ゲーです。  
+ブラウザで遊べる 6 レーン（S D F J K L）の縦スクロール音ゲーです。  
 曲選択 → プレイ → リザルトまでを実装しています。
 
 ## 起動方法
@@ -25,7 +25,7 @@ npm run build
   - キーボード: `S D F J K L`
   - マウス/タップ: レーンを直接クリック/タップ
   - `ESC`: ポーズ（Resume / Retry / Back to Select）
-- デバッグ時オフセット調整:
+- デバッグ時のオフセット調整:
   - `[` / `]` で `calibrationOffsetMs` を ±1ms
   - `Shift + [` / `Shift + ]` で ±5ms
 

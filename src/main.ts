@@ -404,6 +404,18 @@ function playHitSe(): void {
   osc.stop(now + 0.045);
 }
 
+function updateHud(
+  session: GameplaySession,
+  scoreEl: Element | null,
+  accEl: Element | null,
+  comboEl: Element | null,
+): void {
+  if (!scoreEl || !accEl || !comboEl) return;
+  scoreEl.textContent = String(Math.round(session.score));
+  accEl.textContent = `${(getAccuracy(session) * 100).toFixed(2)}%`;
+  comboEl.textContent = String(session.combo);
+}
+
 function bindGameplayInputs(session: GameplaySession): void {
   const scoreEl = appRoot.querySelector('#score');
   const accEl = appRoot.querySelector('#acc');
@@ -412,9 +424,7 @@ function bindGameplayInputs(session: GameplaySession): void {
   songNameEl!.textContent = `${session.song.title} [${session.song.difficulty}]`;
 
   const syncHud = (): void => {
-    scoreEl!.textContent = String(Math.round(session.score));
-    accEl!.textContent = `${(getAccuracy(session) * 100).toFixed(2)}%`;
-    comboEl!.textContent = String(session.combo);
+    updateHud(session, scoreEl, accEl, comboEl);
   };
   syncHud();
 
@@ -613,9 +623,7 @@ function updateUi(session: GameplaySession, songTime: number): void {
   const judgeEl = appRoot.querySelector('#judge-text');
   const debugEl = appRoot.querySelector('#debug-panel');
 
-  if (scoreEl) scoreEl.textContent = String(Math.round(session.score));
-  if (accEl) accEl.textContent = `${(getAccuracy(session) * 100).toFixed(2)}%`;
-  if (comboEl) comboEl.textContent = String(session.combo);
+  updateHud(session, scoreEl, accEl, comboEl);
 
   if (judgeEl) {
     if (session.judgementText) {
