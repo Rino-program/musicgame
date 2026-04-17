@@ -1,0 +1,382 @@
+:root {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #e5edff;
+  background: #070a14;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+  background: radial-gradient(circle at 20% 15%, #1b2745 0%, #070a14 55%);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #5f7dff, #8b5cf6);
+  color: #fff;
+  font-weight: 700;
+}
+
+button.ghost {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.screen {
+  min-height: 100vh;
+}
+
+.song-select {
+  padding: 24px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2vw, 2rem);
+}
+
+.song-select-main {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: minmax(280px, 2fr) minmax(260px, 1fr);
+  gap: 18px;
+}
+
+.song-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.song-card {
+  text-align: left;
+  display: flex;
+  gap: 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  min-height: 110px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.song-card:hover,
+.song-card.selected {
+  transform: translateY(-3px) scale(1.01);
+  border-color: rgba(124, 232, 255, 0.88);
+  box-shadow: 0 12px 26px rgba(63, 164, 255, 0.35);
+}
+
+.jacket {
+  width: 74px;
+  min-width: 74px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #4552e8, #cf57ff);
+}
+
+.song-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.song-meta h3 {
+  margin: 0;
+}
+
+.song-meta p {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 0.92rem;
+}
+
+.diff {
+  display: inline-block;
+  margin-top: 2px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  background: rgba(124, 232, 255, 0.2);
+  width: fit-content;
+}
+
+.settings-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.settings-card h2 {
+  margin: 0;
+}
+
+.settings-card label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.settings-card input {
+  width: 100%;
+}
+
+.play {
+  margin-top: 4px;
+}
+
+.hint {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 0.85rem;
+}
+
+.gameplay-root {
+  position: relative;
+  overflow: hidden;
+}
+
+#game-canvas {
+  width: 100%;
+  height: 100vh;
+  touch-action: none;
+  display: block;
+}
+
+.hud {
+  position: absolute;
+  background: rgba(5, 8, 18, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  backdrop-filter: blur(3px);
+}
+
+.top-left {
+  top: 12px;
+  left: 12px;
+  padding: 8px 12px;
+}
+
+.top-center {
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 14px;
+  font-size: 0.95rem;
+}
+
+.top-right {
+  top: 12px;
+  right: 12px;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.judge-text {
+  left: 50%;
+  bottom: 20%;
+  transform: translateX(-50%);
+  border: none;
+  background: transparent;
+  font-size: clamp(1.4rem, 4vw, 2.5rem);
+  font-weight: 800;
+  text-shadow: 0 0 12px currentColor;
+}
+
+.debug-panel {
+  right: 12px;
+  top: 88px;
+  width: min(380px, 92vw);
+  padding: 10px 12px;
+  font-size: 0.86rem;
+}
+
+.debug-panel h3 {
+  margin: 0 0 6px;
+}
+
+.debug-panel p {
+  margin: 3px 0;
+}
+
+.mini-hist {
+  margin-top: 6px;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 42px;
+}
+
+.mini-hist .bar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: rgba(104, 182, 255, 0.6);
+}
+
+.mini-hist .bar.perfect {
+  background: rgba(124, 248, 197, 0.9);
+}
+
+.pause-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(2, 4, 12, 0.55);
+}
+
+.pause-overlay.hidden {
+  display: none;
+}
+
+.pause-card {
+  width: min(360px, 92vw);
+  background: rgba(12, 18, 35, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 14px;
+  padding: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.pause-card h2 {
+  margin: 0 0 4px;
+}
+
+.result-screen {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 28px 18px 40px;
+}
+
+.result-screen h1,
+.result-screen h2 {
+  margin: 0;
+}
+
+.result-screen h2 {
+  margin-top: 8px;
+  opacity: 0.88;
+  font-size: 1.1rem;
+}
+
+.result-grid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+
+.result-grid > div {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 10px;
+  display: grid;
+  gap: 4px;
+}
+
+.result-grid strong {
+  font-size: 0.82rem;
+  opacity: 0.78;
+}
+
+.result-grid span {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.judge-breakdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.judge-breakdown p {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.histogram {
+  margin-top: 16px;
+  height: 140px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 10px;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.hbar {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: rgba(104, 182, 255, 0.62);
+}
+
+.hbar.perfect {
+  background: rgba(124, 248, 197, 0.92);
+}
+
+.actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  .song-select-main {
+    grid-template-columns: 1fr;
+  }
+
+  .top-center {
+    left: 12px;
+    transform: none;
+    top: 56px;
+  }
+
+  .debug-panel {
+    top: auto;
+    right: 8px;
+    left: 8px;
+    bottom: 10px;
+    width: auto;
+  }
+}
